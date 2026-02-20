@@ -1,0 +1,85 @@
+body {
+  font-family: Arial;
+  background:#f0f4ff;
+  display:flex;
+  justify-content:center;
+  padding-top:50px;
+}
+
+.app-container {
+  width:400px;
+  background:white;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+.tab-buttons {
+  display:flex;
+  margin-bottom:20px;
+}
+
+.tab-buttons button {
+  flex:1;
+  padding:12px;
+  border:none;
+  background:#eee;
+  cursor:pointer;
+  font-weight:bold;
+  border-radius:8px 8px 0 0;
+  transition:all 0.3s;
+}
+
+.tab-buttons button.active {
+  background:#667eea;
+  color:white;
+}
+
+.tab-content {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.form-container {
+  display:flex;
+  flex-direction:column;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding:10px;
+  margin:6px 0;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+button[type="submit"] {
+  padding:12px;
+  background:#667eea;
+  color:white;
+  border:none;
+  border-radius:8px;
+  margin-top:12px;
+  cursor:pointer;
+}
+
+button[type="submit"]:hover {
+  background:#5465d9;
+}
+
+.error {
+  color:red;
+  font-size:0.85em;
+  margin:2px 0 6px;
+}
+
+.success {
+  color:green;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(10px);}
+  to {opacity:1; transform:translateY(0);}
+}
