@@ -1,31 +1,36 @@
 import { useState } from "react";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
-
 import "./App.css";
 
 export default function App() {
-  const [tab, setTab] = useState("login");
+  const [activeTab, setActiveTab] = useState("login");
 
   return (
-    <div className="app-container">
-      <div className="tab-buttons">
-        <button
-          className={tab === "login" ? "active" : ""}
-          onClick={() => setTab("login")}
-        >
-          Login
-        </button>
-        <button
-          className={tab === "register" ? "active" : ""}
-          onClick={() => setTab("register")}
-        >
-          Register
-        </button>
-      </div>
+    <div className="app-wrapper">
+      <div className="card">
 
-      <div className="tab-content">
-        {tab === "login" ? <LoginForm /> : <RegisterForm />}
+        <div className="tabs">
+          <button
+            className={activeTab === "login" ? "tab active" : "tab"}
+            onClick={() => setActiveTab("login")}
+          >
+            Login
+          </button>
+
+          <button
+            className={activeTab === "register" ? "tab active" : "tab"}
+            onClick={() => setActiveTab("register")}
+          >
+            Register
+          </button>
+        </div>
+
+        <div className="form-area">
+          {activeTab === "login" && <LoginForm />}
+          {activeTab === "register" && <RegisterForm />}
+        </div>
+
       </div>
     </div>
   );

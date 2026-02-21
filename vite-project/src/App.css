@@ -1,85 +1,164 @@
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== Body ===== */
 body {
-  font-family: Arial;
-  background:#f0f4ff;
-  display:flex;
-  justify-content:center;
-  padding-top:50px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.app-container {
-  width:400px;
-  background:white;
-  padding:30px;
-  border-radius:12px;
-  box-shadow:0 0 15px rgba(0,0,0,0.2);
+/* ===== Main Wrapper ===== */
+.app-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.tab-buttons {
-  display:flex;
-  margin-bottom:20px;
+/* ===== Card ===== */
+.card {
+  background: white;
+  width: 420px;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.4s ease-in-out;
 }
 
-.tab-buttons button {
-  flex:1;
-  padding:12px;
-  border:none;
-  background:#eee;
-  cursor:pointer;
-  font-weight:bold;
-  border-radius:8px 8px 0 0;
-  transition:all 0.3s;
+/* ===== Tabs ===== */
+.tabs {
+  display: flex;
+  margin-bottom: 25px;
 }
 
-.tab-buttons button.active {
-  background:#667eea;
-  color:white;
+.tab {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  background: #f1f1f1;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: 8px 8px 0 0;
 }
 
-.tab-content {
-  animation: fadeIn 0.3s ease-in;
+.tab:hover {
+  background: #e0e0e0;
 }
 
-.form-container {
-  display:flex;
-  flex-direction:column;
+.tab.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  padding:10px;
-  margin:6px 0;
-  border-radius:6px;
-  border:1px solid #ccc;
+/* ===== Form Area ===== */
+.form-area {
+  animation: slideUp 0.3s ease-in-out;
 }
 
-button[type="submit"] {
-  padding:12px;
-  background:#667eea;
-  color:white;
-  border:none;
-  border-radius:8px;
-  margin-top:12px;
-  cursor:pointer;
+/* ===== Form Container ===== */
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-button[type="submit"]:hover {
-  background:#5465d9;
+/* ===== Input Group ===== */
+.input-group {
+  margin-bottom: 15px;
 }
 
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+}
+
+/* ===== Checkbox ===== */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+/* ===== Submit Button ===== */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Error ===== */
 .error {
-  color:red;
-  font-size:0.85em;
-  margin:2px 0 6px;
+  color: #e63946;
+  font-size: 13px;
+  margin-top: 3px;
 }
 
+/* ===== Success ===== */
 .success {
-  color:green;
-  font-weight:bold;
-  margin-top:10px;
+  margin-top: 15px;
+  text-align: center;
+  color: #2a9d8f;
+  font-weight: 600;
 }
 
+/* ===== Animations ===== */
 @keyframes fadeIn {
-  from {opacity:0; transform:translateY(10px);}
-  to {opacity:1; transform:translateY(0);}
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -1,52 +1,73 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { registerSchema } from "../schemas/registerSchema";
 
-const schema = yup.object().shape({
-  fullName: yup.string().required("Full Name is required").min(3, "Full Name must be at least 3 characters"),
-  email: yup.string().required("Email is required").email("Must be a valid email"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters")
-    .matches(/\d/, "Must include at least 1 number"),
-  confirmPassword: yup.string().required("Confirm Password is required").oneOf([yup.ref("password")], "Passwords must match"),
-  terms: yup.boolean().oneOf([true], "You must accept Terms & Conditions"),
-});
+import FormInput from "./common/FormInput";
+import SubmitButton from "./common/SubmitButton";
 
 export default function RegisterForm() {
   const [success, setSuccess] = useState("");
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(registerSchema)
+  });
+
+  const onSubmit = data => {
+    console.log("Register Data:", data);
     setSuccess("Registration Successful!");
   };
 
   return (
     <div className="form-container">
       <h2>Register</h2>
+
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Full Name" {...register("fullName")} />
-        <p className="error">{errors.fullName?.message}</p>
 
-        <input placeholder="Email" {...register("email")} />
-        <p className="error">{errors.email?.message}</p>
+        <FormInput
+          label="Full Name"
+          name="fullName"
+          register={register}
+          error={errors.fullName?.message}
+        />
 
-        <input type="password" placeholder="Password" {...register("password")} />
-        <p className="error">{errors.password?.message}</p>
+        <FormInput
+          label="Email"
+          name="email"
+          register={register}
+          error={errors.email?.message}
+        />
 
-        <input type="password" placeholder="Confirm Password" {...register("confirmPassword")} />
-        <p className="error">{errors.confirmPassword?.message}</p>
+        <FormInput
+          label="Password"
+          type="password"
+          name="password"
+          register={register}
+          error={errors.password?.message}
+        />
 
-        <label>
-          <input type="checkbox" {...register("terms")} /> Accept Terms & Conditions
-        </label>
-        <p className="error">{errors.terms?.message}</p>
+        <FormInput
+          label="Confirm Password"
+          type="password"
+          name="confirmPassword"
+          register={register}
+          error={errors.confirmPassword?.message}
+        />
 
-        <button type="submit">Register</button>
+        <div className="checkbox-group">
+          <input type="checkbox" {...register("terms")} />
+          <label>Accept Terms & Conditions</label>
+        </div>
+        {errors.terms && <p className="error">{errors.terms.message}</p>}
+
+        <SubmitButton text="Register" />
+
       </form>
+
       {success && <p className="success">{success}</p>}
     </div>
   );
