@@ -2,73 +2,86 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../schemas/registerSchema";
+import FormCard from "../components/FormCard";
+import InputField from "../components/InputField";
+import PasswordRules from "../components/PasswordRules";
+import Button from "../components/Button";
 
-import FormInput from "./common/FormInput";
-import SubmitButton from "./common/SubmitButton";
-
-export default function RegisterForm() {
+export default function Register() {
   const [success, setSuccess] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
-    resolver: yupResolver(registerSchema)
+    resolver: yupResolver(registerSchema),
   });
 
-  const onSubmit = data => {
-    console.log("Register Data:", data);
+  const onSubmit = (data) => {
+    console.log("===== REGISTER DATA =====");
+    console.log(data);
+    console.log("=========================");
+
     setSuccess("Registration Successful!");
   };
 
+  const onError = (errors) => {
+    console.log("===== REGISTER ERRORS =====");
+    console.log(errors);
+    console.log("===========================");
+  };
+
   return (
-    <div className="form-container">
-      <h2>Register</h2>
+    <FormCard>
+      <h2 className="form-title">Create Account</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
 
-        <FormInput
+        <InputField
           label="Full Name"
           name="fullName"
           register={register}
           error={errors.fullName?.message}
         />
 
-        <FormInput
+        <InputField
           label="Email"
           name="email"
+          type="email"
           register={register}
           error={errors.email?.message}
         />
 
-        <FormInput
+        <InputField
           label="Password"
-          type="password"
           name="password"
+          type="password"
           register={register}
           error={errors.password?.message}
         />
 
-        <FormInput
+        <PasswordRules />
+
+        <InputField
           label="Confirm Password"
-          type="password"
           name="confirmPassword"
+          type="password"
           register={register}
           error={errors.confirmPassword?.message}
         />
 
         <div className="checkbox-group">
           <input type="checkbox" {...register("terms")} />
-          <label>Accept Terms & Conditions</label>
+          <label>I accept Terms & Conditions</label>
         </div>
+
         {errors.terms && <p className="error">{errors.terms.message}</p>}
 
-        <SubmitButton text="Register" />
+        <Button type="submit">Register</Button>
 
+        {success && <p className="success">{success}</p>}
       </form>
-
-      {success && <p className="success">{success}</p>}
-    </div>
+    </FormCard>
   );
 }
