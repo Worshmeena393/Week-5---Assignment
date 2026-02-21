@@ -14,7 +14,7 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
@@ -40,37 +40,32 @@ export default function Login() {
       <h2 className="form-title">Login</h2>
 
       <form onSubmit={handleSubmit(onSubmit, onError)}>
+        {/* Correct usage: spread register directly */}
         <InputField
           label="Email"
-          name="email"
           type="email"
-          register={register}
+          {...register("email")}
           error={errors.email?.message}
         />
 
         <InputField
           label="Password"
-          name="password"
           type="password"
-          register={register}
+          {...register("password")}
           error={errors.password?.message}
         />
 
-        <Button type="submit">Login</Button>
+        <Button type="submit" text="Login" />
 
         {success && <p className="success">{success}</p>}
 
-        {/* 🔥 Register Link Added Here */}
+        {/* Link to Register page */}
         <p style={{ marginTop: "18px", textAlign: "center" }}>
           Don't have an account?{" "}
-          <Link 
-            to="/register" 
-            style={{ color: "#00c6ff", fontWeight: "600" }}
-          >
+          <Link to="/register" style={{ color: "#00c6ff", fontWeight: "600" }}>
             Register
           </Link>
         </p>
-
       </form>
     </FormCard>
   );

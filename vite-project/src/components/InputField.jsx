@@ -1,36 +1,49 @@
 import { useState } from "react";
 
-export default function InputField({
-  label,
-  name,
-  type = "text",
-  register,
-  error
-}) {
+export default function InputField({ label, type = "text", error, ...rest }) {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
 
   return (
     <div className="input-group">
+      {/* Label */}
       <label>{label}</label>
 
-      <div className="password-wrapper">
+      {/* Input with optional password toggle */}
+      <div className="password-wrapper" style={{ position: "relative" }}>
         <input
           type={isPassword && showPassword ? "text" : type}
-          {...register(name)}
+          {...rest} // Spread react-hook-form register props here
+          style={{
+            width: "100%",
+            padding: isPassword ? "10px 50px 10px 10px" : "10px",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+          }}
         />
 
+        {/* Show/Hide Password Button */}
         {isPassword && (
           <span
-            className="toggle-password"
             onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              cursor: "pointer",
+              color: "#2563eb",
+              fontSize: "0.9em",
+              userSelect: "none",
+            }}
           >
             {showPassword ? "Hide" : "Show"}
           </span>
         )}
       </div>
 
-      {error && <p className="error">{error}</p>}
+      {/* Error Message */}
+      {error && <p className="error" style={{ color: "#e63946", fontSize: "0.85em", marginTop: "4px" }}>{error}</p>}
     </div>
   );
 }

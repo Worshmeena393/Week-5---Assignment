@@ -1,4 +1,4 @@
-const Button = ({ children, type = "button" }) => {
+const Button = ({ text, type }) => {
   return (
     <button
       type={type}
@@ -15,7 +15,7 @@ const Button = ({ children, type = "button" }) => {
         transition: "all 0.3s ease",
       }}
     >
-      {children}
+      {text} {/* ← Display the text prop */}
     </button>
   );
 };

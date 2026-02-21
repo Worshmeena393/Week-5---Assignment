@@ -14,16 +14,23 @@ export default function Register() {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
+    reset,
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
 
   const onSubmit = (data) => {
     console.log("===== REGISTER DATA =====");
-    console.log(data);
+    console.log("Full Name:", data.fullName);
+    console.log("Email:", data.email);
+    console.log("Password:", data.password);
+    console.log("Confirm Password:", data.confirmPassword);
+    console.log("Terms Accepted:", data.terms);
     console.log("=========================");
 
     setSuccess("Registration Successful!");
+    reset();
   };
 
   const onError = (errors) => {
@@ -32,42 +39,39 @@ export default function Register() {
     console.log("===========================");
   };
 
+  const passwordValue = watch("password");
+
   return (
     <FormCard>
-      <h2 className="form-title">Create Account</h2>
+      <h2>Register</h2>
 
       <form onSubmit={handleSubmit(onSubmit, onError)}>
-
         <InputField
           label="Full Name"
-          name="fullName"
-          register={register}
+          {...register("fullName")}
           error={errors.fullName?.message}
         />
 
         <InputField
           label="Email"
-          name="email"
           type="email"
-          register={register}
+          {...register("email")}
           error={errors.email?.message}
         />
 
         <InputField
           label="Password"
-          name="password"
           type="password"
-          register={register}
+          {...register("password")}
           error={errors.password?.message}
         />
 
-        <PasswordRules />
+        <PasswordRules password={passwordValue} />
 
         <InputField
           label="Confirm Password"
-          name="confirmPassword"
           type="password"
-          register={register}
+          {...register("confirmPassword")}
           error={errors.confirmPassword?.message}
         />
 
@@ -75,10 +79,9 @@ export default function Register() {
           <input type="checkbox" {...register("terms")} />
           <label>I accept Terms & Conditions</label>
         </div>
+        <p className="error">{errors.terms?.message}</p>
 
-        {errors.terms && <p className="error">{errors.terms.message}</p>}
-
-        <Button type="submit">Register</Button>
+        <Button type="submit" text="Register" />
 
         {success && <p className="success">{success}</p>}
       </form>
